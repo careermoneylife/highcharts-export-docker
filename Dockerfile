@@ -1,7 +1,7 @@
 from node:7.7.2
 
 ENV ACCEPT_HIGHCHARTS_LICENSE="YES"
-RUN npm install highcharts-export-server -g 
+RUN npm install highcharts-export-server-pie -g 
 
 WORKDIR /usr/share/fonts/truetype
 ADD fonts/OpenSans-Regular.ttf OpenSans-Regular.ttf
