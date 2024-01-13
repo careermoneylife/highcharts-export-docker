@@ -1,12 +1,10 @@
 # highcharts-export-docker
 
-This repo contains what is required to build the docker image for the highcharts export server with Pie chart support. It uses the more recent node implementation of the highcharts export server: 
+This repo now contains a dockerfile used to build a docker image of the highcharts export server version 3.
 
-https://github.com/andyhird/node-export-server
+The dockerfile is based on (a reverse engineered) docker image by cubetiq/highcharts-export-server of the official docker hub.
 
-which is a fork of 
-
-https://github.com/highcharts/node-export-server
+Fortunately we no longer require a fork of the npm package to include pie chart support, this is included in the standard image.
 
 If you want to skip the build phase and get a container running there is an automatic build setup on dockerhub. Any commits to this repo will automatically build a new container here:
 
@@ -16,16 +14,18 @@ this is a pie chart version of:
 
 https://hub.docker.com/r/onsdigital/highcharts-export-node/
 
-## Build
+## Build Locally
 
 ```
-docker build -t andyhirdcml/highcharts-export-node-pie .
+docker build -t highcharts-export-server .
 ```
 
-## Run
+Note that this has problems on macos. It looks like chromium or puppeteer don't work unless (most likely) it's done on Intel hardware.
+
+## Run Locally
 
 ```
-docker run -d --name highcharts -p 8889:8080 andyhirdcml/highcharts-export-node-pie
+docker run -d --name highcharts -p 8889:8080 highcharts-export-server
 ```
 The above command will expose the service on port 8889. This can be changed if required.
 

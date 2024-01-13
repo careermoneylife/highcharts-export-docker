@@ -1,7 +1,15 @@
-from node:7.7.2
+FROM --platform=linux/amd64 node:21-alpine
 
+LABEL maintainer=andyh@careermoneylife.com
+
+ENV NODE_VERSION=21.4.0
 ENV ACCEPT_HIGHCHARTS_LICENSE="YES"
-RUN npm install highcharts-export-server-pie -g 
+
+RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV NODE_ENV=production
+
+RUN npm install highcharts-export-server -g 
 
 WORKDIR /usr/share/fonts/truetype
 ADD fonts/OpenSans-Regular.ttf OpenSans-Regular.ttf
@@ -14,6 +22,7 @@ ADD fonts/OpenSans-LightItalic.ttf OpenSans-LightItalic.ttf
 ADD fonts/OpenSans-BoldItalic.ttf OpenSans-BoldItalic.ttf
 ADD fonts/OpenSans-SemiboldItalic.ttf OpenSans-SemiboldItalic.ttf
 ADD fonts/OpenSans-ExtraBoldItalic.ttf OpenSans-ExtraBoldItalic.ttf
+RUN fc-cache -fv 
 WORKDIR /
 
 EXPOSE 8080
